@@ -684,6 +684,17 @@ services:
       - "${GRAFANA_SERVICE_PORT}"
     logging: *logging
 
+#  # Kafka UI
+#  kafka-ui:
+#    container_name: kafka-ui
+#    image: provectuslabs/kafka-ui:latest
+#    ports:
+#      - "${KAFKA_UI_PORT}"
+#    environment:
+#      DYNAMIC_CONFIG_ENABLED: 'true'
+#    volumes:
+#      - ${KAFKA_UI_CONFIG}:/etc/kafkaui/dynamic_config.yaml
+
   # OpenTelemetry Collector
   otelcol:
     image: ${COLLECTOR_CONTRIB_IMAGE}
@@ -705,6 +716,7 @@ services:
       - "${OTEL_COLLECTOR_PORT_HTTP}"
     depends_on:
       - jaeger
+      - kafka
     logging: *logging
     environment:
       - ENVOY_PORT
